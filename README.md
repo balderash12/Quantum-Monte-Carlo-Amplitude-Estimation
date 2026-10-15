@@ -1,9 +1,7 @@
+
 # Quantum-Monte-Carlo-Amplitude-Estimation
-Qiskit-based implementation of Quantum Amplitude Estimation (QAE), benchmarking estimation error and runtime against classical Monte Carlo across sample sizes (up to 10^9).
 
-# Quantum Monte Carlo Estimation with Amplitude Amplification
-
-A Qiskit-based demonstration of **Quantum Amplitude Estimation (QAE)** for probabilistic estimation, benchmarked against classical Monte Carlo sampling. The project explores how quantum amplitude estimation can improve estimation precision with fewer oracle queries, and compares classical and quantum results across increasing sample-size ranges.
+A Qiskit-based implementation of Quantum Amplitude Estimation (QAE), benchmarking estimation error and runtime against classical Monte Carlo across sample sizes up to $10^9$.
 
 ## Overview
 
@@ -49,24 +47,21 @@ The objective is to estimate the unknown success probability $a$ from repeated o
 For $N$ independent samples, the classical Monte Carlo estimator is
 
 $$
-\hat{a}_{\mathrm{MC}}
-=
-\frac{1}{N}\sum_{i=1}^{N}X_i.
+\hat{a}_{\mathrm{MC}} =
+\frac{1}{N}\sum_{i=1}^{N} X_i.
 $$
 
 This estimator is unbiased, and its variance is
 
-
-$\operatorname{Var}(\hat{a}_{\mathrm{MC}})
-=
-\frac{a(1-a)}{N}. $
+$$
+\operatorname{Var}(\hat{a}_{\mathrm{MC}})
+= \frac{a(1-a)}{N}.
+$$
 
 Consequently, its standard error scales as
 
 $$
-\boxed{
-\epsilon_{\mathrm{MC}}=O(N^{-1/2})
-}
+\boxed{\epsilon_{\mathrm{MC}} = O(N^{-1/2})}
 $$
 
 where $N$ is the number of independent samples.
@@ -80,32 +75,28 @@ Quantum Amplitude Estimation encodes the probability of interest into the amplit
 For the probability $a$, the state can be written as
 
 $$
-|\psi\rangle
-=
-\sqrt{1-a}\,|0\rangle
-+
+|\psi\rangle =
+\sqrt{1-a}\,|0\rangle +
 \sqrt{a}\,|1\rangle.
 $$
 
 The probability of measuring the success state $|1\rangle$ is therefore
 
 $$
-|\langle 1|\psi\rangle|^2=a.
+|\langle 1|\psi\rangle|^2 = a.
 $$
 
 In this notebook, the true success probability is set to
 
 $$
-a=0.2.
+a = 0.2.
 $$
 
 The prepared state is
 
 $$
-|\psi\rangle
-=
-\sqrt{0.8}\,|0\rangle
-+
+|\psi\rangle =
+\sqrt{0.8}\,|0\rangle +
 \sqrt{0.2}\,|1\rangle.
 $$
 
@@ -130,13 +121,13 @@ Amplitude amplification uses quantum reflections to increase or otherwise transf
 Writing
 
 $$
-a=\sin^2\theta,
+a = \sin^2\theta,
 $$
 
 the success probability after $k$ Grover-style amplification iterations takes the form
 
 $$
-P_k=\sin^2\big((2k+1)\theta\big).
+P_k = \sin^2\big((2k+1)\theta\big).
 $$
 
 The resulting dependence on the iteration count provides information about the underlying amplitude. Quantum Amplitude Estimation uses this information to estimate $a$.
@@ -182,9 +173,8 @@ For each sample size, the notebook records:
 The absolute error is defined as
 
 $$
-E_{\mathrm{MC}}
-=
-|\hat{a}_{\mathrm{MC}}-a|.
+E_{\mathrm{MC}} =
+|\hat{a}_{\mathrm{MC}} - a|.
 $$
 
 ### Quantum Amplitude Estimation
@@ -229,7 +219,7 @@ The notebook prints comparison tables containing the estimated probability, abso
 Because the true probability is known, the estimation error can be calculated directly:
 
 $$
-E=|\hat{a}-a|.
+E = |\hat{a} - a|.
 $$
 
 This makes the example useful for evaluating numerical accuracy without requiring an external reference value.
