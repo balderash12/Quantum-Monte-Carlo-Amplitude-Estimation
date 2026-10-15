@@ -1,7 +1,6 @@
 # Quantum-Monte-Carlo-Amplitude-Estimation
 Qiskit-based implementation of Quantum Amplitude Estimation (QAE), benchmarking estimation error and runtime against classical Monte Carlo across sample sizes (up to 10^9).
 
-
 # Quantum Monte Carlo Estimation with Amplitude Amplification
 
 A Qiskit-based demonstration of **Quantum Amplitude Estimation (QAE)** for probabilistic estimation, benchmarked against classical Monte Carlo sampling. The project explores how quantum amplitude estimation can improve estimation precision with fewer oracle queries, and compares classical and quantum results across increasing sample-size ranges.
@@ -18,7 +17,7 @@ This project implements a simple probability-estimation problem in Qiskit and co
 - Quantum state preparation to encode a known success probability.
 - Iterative Quantum Amplitude Estimation using Qiskit Algorithms.
 - Classical-versus-quantum comparisons of absolute estimation error and execution time.
-- A logarithmic sample-size sweep extending from \(10^2\) to \(10^9\).
+- A logarithmic sample-size sweep extending from $10^2$ to $10^9$.
 - Visualizations illustrating the accuracy-runtime trade-off and the behaviour of both methods across different sample-size ranges.
 
 The notebook is intended as an educational and experimental demonstration of quantum amplitude estimation, its underlying principles, and its potential computational advantages.
@@ -35,43 +34,43 @@ The notebook is intended as an educational and experimental demonstration of qua
 
 ### 1. Classical Monte Carlo Estimation
 
-Consider a random variable \(X\) with a Bernoulli distribution:
+Consider a random variable $X$ with a Bernoulli distribution:
 
-\[
+$$
 X =
 \begin{cases}
-1, & \text{with probability } a,\\
+1, & \text{with probability } a, \\
 0, & \text{with probability } 1-a.
 \end{cases}
-\]
+$$
 
-The objective is to estimate the unknown success probability \(a\) from repeated observations.
+The objective is to estimate the unknown success probability $a$ from repeated observations.
 
-For \(N\) independent samples, the classical Monte Carlo estimator is
+For $N$ independent samples, the classical Monte Carlo estimator is
 
-\[
+$$
 \hat{a}_{\mathrm{MC}}
 =
 \frac{1}{N}\sum_{i=1}^{N}X_i.
-\]
+$$
 
 This estimator is unbiased, and its variance is
 
-\[
+$$
 \operatorname{Var}(\hat{a}_{\mathrm{MC}})
 =
 \frac{a(1-a)}{N}.
-\]
+$$
 
 Consequently, its standard error scales as
 
-\[
+$$
 \boxed{
 \epsilon_{\mathrm{MC}}=O(N^{-1/2})
 }
-\]
+$$
 
-where \(N\) is the number of independent samples.
+where $N$ is the number of independent samples.
 
 This scaling has an important consequence: reducing the typical statistical error by a factor of ten generally requires approximately one hundred times as many samples.
 
@@ -79,37 +78,37 @@ This scaling has an important consequence: reducing the typical statistical erro
 
 Quantum Amplitude Estimation encodes the probability of interest into the amplitudes of a quantum state.
 
-For the probability \(a\), the state can be written as
+For the probability $a$, the state can be written as
 
-\[
+$$
 |\psi\rangle
 =
 \sqrt{1-a}\,|0\rangle
 +
 \sqrt{a}\,|1\rangle.
-\]
+$$
 
-The probability of measuring the success state \(|1\rangle\) is therefore
+The probability of measuring the success state $|1\rangle$ is therefore
 
-\[
+$$
 |\langle 1|\psi\rangle|^2=a.
-\]
+$$
 
 In this notebook, the true success probability is set to
 
-\[
+$$
 a=0.2.
-\]
+$$
 
 The prepared state is
 
-\[
+$$
 |\psi\rangle
 =
 \sqrt{0.8}\,|0\rangle
 +
 \sqrt{0.2}\,|1\rangle.
-\]
+$$
 
 The implementation constructs this state using Qiskit's `StatePreparation` circuit.
 
@@ -131,32 +130,32 @@ Amplitude amplification uses quantum reflections to increase or otherwise transf
 
 Writing
 
-\[
+$$
 a=\sin^2\theta,
-\]
+$$
 
-the success probability after \(k\) Grover-style amplification iterations takes the form
+the success probability after $k$ Grover-style amplification iterations takes the form
 
-\[
+$$
 P_k=\sin^2\big((2k+1)\theta\big).
-\]
+$$
 
-The resulting dependence on the iteration count provides information about the underlying amplitude. Quantum Amplitude Estimation uses this information to estimate \(a\).
+The resulting dependence on the iteration count provides information about the underlying amplitude. Quantum Amplitude Estimation uses this information to estimate $a$.
 
 Unlike ordinary sampling, QAE does not rely solely on counting independent outcomes from the original state. It exploits the structure of quantum operations to extract information about the amplitude.
 
 ### 4. Classical Versus Quantum Query Complexity
 
-For a target additive estimation error \(\epsilon\), the standard theoretical comparison is:
+For a target additive estimation error $\epsilon$, the standard theoretical comparison is:
 
 | Method | Query complexity |
 |---|---|
-| Classical Monte Carlo | \(O(1/\epsilon^2)\) |
-| Quantum Amplitude Estimation | \(O(1/\epsilon)\) |
+| Classical Monte Carlo | $O(1/\epsilon^2)$ |
+| Quantum Amplitude Estimation | $O(1/\epsilon)$ |
 
 Under the relevant assumptions, QAE provides a **quadratic improvement in query complexity**.
 
-Equivalently, the idealized error scaling with the number of relevant queries is \(O(1/N)\) for QAE, compared with \(O(1/\sqrt{N})\) for classical Monte Carlo.
+Equivalently, the idealized error scaling with the number of relevant queries $N$ is $O(1/N)$ for QAE, compared with $O(1/\sqrt{N})$ for classical Monte Carlo.
 
 These are theoretical complexity results, not guarantees of a quadratic improvement in wall-clock execution time for every implementation. The cost of state preparation, oracle operations, circuit execution, hardware noise, and post-processing must also be considered.
 
@@ -183,9 +182,11 @@ For each sample size, the notebook records:
 
 The absolute error is defined as
 
-\[
-E_{\mathrm{MC}}=|\hat{a}_{\mathrm{MC}}-a|.
-\]
+$$
+E_{\mathrm{MC}}
+=
+|\hat{a}_{\mathrm{MC}}-a|.
+$$
 
 ### Quantum Amplitude Estimation
 
@@ -228,9 +229,9 @@ The notebook prints comparison tables containing the estimated probability, abso
 
 Because the true probability is known, the estimation error can be calculated directly:
 
-\[
+$$
 E=|\hat{a}-a|.
-\]
+$$
 
 This makes the example useful for evaluating numerical accuracy without requiring an external reference value.
 
@@ -245,36 +246,36 @@ for end_exponent in range(2, 10):
     )
 ```
 
-The sweep covers upper exponents from 2 through 9, extending the classical sample-size range from \(10^2\) to \(10^9\).
+The sweep covers upper exponents from 2 through 9, extending the classical sample-size range from $10^2$ to $10^9$.
 
 | Upper exponent | Sample-size interval |
 |---:|---|
-| 2 | \(10^2\) to \(10^2\) |
-| 3 | \(10^2\) to \(10^3\) |
-| 4 | \(10^2\) to \(10^4\) |
-| 5 | \(10^2\) to \(10^5\) |
-| 6 | \(10^2\) to \(10^6\) |
-| 7 | \(10^2\) to \(10^7\) |
-| 8 | \(10^2\) to \(10^8\) |
-| 9 | \(10^2\) to \(10^9\) |
+| 2 | $10^2$ to $10^2$ |
+| 3 | $10^2$ to $10^3$ |
+| 4 | $10^2$ to $10^4$ |
+| 5 | $10^2$ to $10^5$ |
+| 6 | $10^2$ to $10^6$ |
+| 7 | $10^2$ to $10^7$ |
+| 8 | $10^2$ to $10^8$ |
+| 9 | $10^2$ to $10^9$ |
 
 For each upper exponent, the notebook evaluates classical Monte Carlo at seven logarithmically spaced sample sizes. It also reruns QAE for the same prepared state and records the resulting runtime and absolute error.
 
 The final visualization overlays the classical and quantum measurements for all upper exponents, using different colours to distinguish the sweeps.
 
-**Important interpretation:** the classical workload changes with the upper exponent, but the QAE problem and target precision remain fixed. The final graph therefore illustrates the effect of increasing the classical sample-size range alongside repeated QAE runs; it is not, by itself, a measurement of QAE complexity as a function of an increasing quantum problem size.
+**Important interpretation:** The classical workload changes with the upper exponent, but the QAE problem and target precision remain fixed. The final graph therefore illustrates the effect of increasing the classical sample-size range alongside repeated QAE runs; it is not, by itself, a measurement of QAE complexity as a function of an increasing quantum problem size.
 
-For the exponent-2 sweep, all seven sample sizes are identical because both endpoints equal \(10^2\).
+For the exponent-2 sweep, all seven sample sizes are identical because both endpoints equal $10^2$.
 
 ## Observed Results
 
-In the notebook's saved initial benchmark run, the classical Monte Carlo estimator uses \(10^7\) samples, while the QAE routine estimates the same prepared probability.
+In the notebook's saved initial benchmark run, the classical Monte Carlo estimator uses $10^7$ samples, while the QAE routine estimates the same prepared probability.
 
 | Metric | Classical Monte Carlo | Quantum Amplitude Estimation |
 |---|---:|---:|
 | True probability | 0.2 | 0.2 |
 | Estimated probability | 0.1998149 | 0.2000000 |
-| Absolute error | \(1.851\times10^{-4}\) | Approximately \(8.3\times10^{-17}\) |
+| Absolute error | $1.851\times10^{-4}$ | Approximately $8.3\times10^{-17}$ |
 | Recorded runtime | Approximately 0.121 s | Approximately 0.0118 s |
 
 These are values from the notebook's saved execution, not guaranteed results for every run or machine.
@@ -306,16 +307,16 @@ git clone https://github.com/USERNAME/REPOSITORY.git
 cd REPOSITORY
 ```
 
-Create and activate a virtual environment, then install the dependencies:
+Create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
 ```
 
-On Windows:
+On Windows (PowerShell):
 
 ```powershell
-.venv\Scripts\activate
+.venv\Scripts\Activate.ps1
 ```
 
 On Linux or macOS:
@@ -324,12 +325,12 @@ On Linux or macOS:
 source .venv/bin/activate
 ```
 
-Install the notebook dependencies:
+Install the dependencies:
 
 ```bash
-pip install numpy==2.0.2 scipy>=1.14.0 matplotlib
-pip install qiskit==1.2.4 qiskit-aer==0.15.1 qiskit-algorithms==0.3.1
-pip install jupyter
+python -m pip install "numpy==2.0.2" "scipy>=1.14.0" matplotlib
+python -m pip install "qiskit==1.2.4" "qiskit-aer==0.15.1" "qiskit-algorithms==0.3.1"
+python -m pip install jupyter
 ```
 
 Launch Jupyter:
@@ -346,14 +347,14 @@ The notebook's recorded environment uses Python 3.12 and the package versions li
 
 This project is an educational benchmark of classical Monte Carlo and quantum amplitude estimation. The following limitations are important when interpreting the results:
 
-- **Idealized probability model:** the success probability is directly encoded into a prepared quantum state. The example does not implement a complex application-specific probability oracle.
-- **Simulator-based execution:** the recorded QAE measurements do not demonstrate performance on a physical quantum processor.
-- **Query complexity versus runtime:** theoretical query-complexity advantages do not automatically translate into wall-clock speedups.
-- **Numerical precision:** a very small absolute error in one execution should not be generalized to arbitrary probabilities or problem instances.
-- **Stochastic classical results:** classical estimates vary across runs unless the NumPy random generator is seeded.
-- **Repeated quantum estimation:** the exponent sweep reruns the same QAE problem at fixed target precision. It does not increase the quantum problem size with the classical sample count.
-- **Environment setup:** the original notebook contains package-uninstallation and installation cells and uses Qiskit's legacy `Sampler` interface. These cells may need adjustment in a fresh environment or with newer Qiskit releases.
-- **Benchmark variability:** execution time depends on the environment, software versions, machine load, and simulator configuration.
+- **Idealized probability model:** The success probability is directly encoded into a prepared quantum state. The example does not implement a complex application-specific probability oracle.
+- **Simulator-based execution:** The recorded QAE measurements do not demonstrate performance on a physical quantum processor.
+- **Query complexity versus runtime:** Theoretical query-complexity advantages do not automatically translate into wall-clock speedups.
+- **Numerical precision:** A very small absolute error in one execution should not be generalized to arbitrary probabilities or problem instances.
+- **Stochastic classical results:** Classical estimates vary across runs unless the NumPy random generator is seeded.
+- **Repeated quantum estimation:** The exponent sweep reruns the same QAE problem at fixed target precision. It does not increase the quantum problem size with the classical sample count.
+- **Environment setup:** The original notebook contains package-uninstallation and installation cells and uses Qiskit's legacy `Sampler` interface. These cells may need adjustment in a fresh environment or with newer Qiskit releases.
+- **Benchmark variability:** Execution time depends on the environment, software versions, machine load, and simulator configuration.
 
 The notebook is best understood as a demonstration of the amplitude-estimation principle and its theoretical scaling advantage, supported by a numerical comparison on a simple probability-estimation task.
 
