@@ -56,11 +56,10 @@ $$
 
 This estimator is unbiased, and its variance is
 
-$$
-\operatorname{Var}(\hat{a}_{\mathrm{MC}})
+
+$\operatorname{Var}(\hat{a}_{\mathrm{MC}})
 =
-\frac{a(1-a)}{N}.
-$$
+\frac{a(1-a)}{N}. $
 
 Consequently, its standard error scales as
 
