@@ -54,7 +54,7 @@ $$
 This estimator is unbiased, and its variance is
 
 $$
-\operatorname{Var}(\hat{a}_{\mathrm{MC}})
+\{Var}(\hat{a}_{\mathrm{MC}})
 = \frac{a(1-a)}{N}.
 $$
 
